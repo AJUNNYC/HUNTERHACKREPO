@@ -17,7 +17,7 @@ import ErrorPage from './components/views/error-page.jsx'; // We will need to co
 
 
 // Better pages (containers)
-// import HomeContainer  from './components/containers/HomeContainer';
+import HomeContainer  from './components/containers/HomeContainer';
 // import SettingsContainer from './components/containers/SettingsContainer';
 
 
@@ -26,8 +26,7 @@ import ErrorPage from './components/views/error-page.jsx'; // We will need to co
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Bananas />, // Homepage should be here
-    //element: <HomeContainer />, // Homepage should be here
+    element: <HomeContainer />, // Homepage should be here
     errorElement: <ErrorPage />
   },
   {
