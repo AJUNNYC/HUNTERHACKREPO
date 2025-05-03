@@ -119,9 +119,6 @@ export default function HomeView({
 
           {requestsList}
 
-          <Button asChild variant="default" className="mt-4">
-            <Link to="/requests">View All Requests</Link>
-          </Button>
         </section>
 
         {/* Services Section */}
@@ -153,9 +150,6 @@ export default function HomeView({
 
           {servicesList}
 
-          <Button asChild variant="default" className="mt-4">
-            <Link to="/offers">View All Offers</Link>
-          </Button>
         </section>
       </div>
     </div>
