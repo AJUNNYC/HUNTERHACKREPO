@@ -66,25 +66,26 @@ export default function HomeView({
   ));
 
   return(
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-12 overflow-hidden">
       {expandedSection && (
         <Button 
           onClick={handleBackClick}
+          variant="outline"
           className="mb-4 transition-all duration-300 hover:scale-105"
         >
           Back to Overview
         </Button>
       )}
       
-      <div className={`grid ${expandedSection ? 'grid-cols-1' : 'md:grid-cols-2'} gap-12 transition-all duration-500`}>
+      <div className={`relative grid ${expandedSection ? 'grid-cols-1' : 'md:grid-cols-2'} gap-12 transition-all duration-500`}>
         {/* Requests Section */}
         <section 
-          className={`transition-all duration-500 ${
+          className={`transition-all duration-500 ease-in-out transform ${
             expandedSection === 'requests' 
-              ? 'col-span-1 scale-105' 
+              ? 'col-span-1 translate-x-0 opacity-100' 
               : expandedSection === 'services' 
-                ? 'hidden' 
-                : 'col-span-1'
+                ? 'translate-x-[-100%] opacity-0 absolute' 
+                : 'col-span-1 translate-x-0 opacity-100'
           }`}
         >
           <h1 
@@ -103,19 +104,19 @@ export default function HomeView({
 
           {requestsList}
 
-          <Button asChild className="mt-4">
+          <Button asChild variant="default" className="mt-4">
             <Link to="/requests">View All Requests</Link>
           </Button>
         </section>
 
         {/* Services Section */}
         <section 
-          className={`transition-all duration-500 ${
+          className={`transition-all duration-500 ease-in-out transform ${
             expandedSection === 'services' 
-              ? 'col-span-1 scale-105' 
+              ? 'col-span-1 translate-x-0 opacity-100' 
               : expandedSection === 'requests' 
-                ? 'hidden' 
-                : 'col-span-1'
+                ? 'translate-x-[100%] opacity-0 absolute' 
+                : 'col-span-1 translate-x-0 opacity-100'
           }`}
         >
           <h1 
@@ -134,7 +135,7 @@ export default function HomeView({
 
           {servicesList}
 
-          <Button asChild className="mt-4">
+          <Button asChild variant="default" className="mt-4">
             <Link to="/offers">View All Offers</Link>
           </Button>
         </section>
