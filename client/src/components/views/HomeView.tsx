@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Request, Service } from "../../types/types";
 import { useState } from "react";
+import ArrowLeft from "../ui/icons";
 
 type HomeViewProps = {
   requests: Request[];
@@ -65,17 +66,28 @@ export default function HomeView({
     </Card>
   ));
 
+  const backButtonAndArrow = (
+    <div className="flex items-center gap-2">
+      <div onClick={handleBackClick}>
+        <ArrowLeft 
+          color="currentColor" 
+          className="w-5 h-5 text-muted-foreground" 
+          />
+      </div>
+
+      <Button 
+        onClick={handleBackClick}
+        variant="ghost"
+        className="transition-all duration-300 hover:scale-105"
+      >
+        Back to Overview
+      </Button>
+    </div>
+  );
+
   return(
     <div className="container mx-auto px-4 py-12 overflow-hidden">
-      {expandedSection && (
-        <Button 
-          onClick={handleBackClick}
-          variant="outline"
-          className="mb-4 transition-all duration-300 hover:scale-105"
-        >
-          Back to Overview
-        </Button>
-      )}
+
       
       <div className={`relative grid ${expandedSection ? 'grid-cols-1' : 'md:grid-cols-2'} gap-12 transition-all duration-500`}>
         {/* Requests Section */}
@@ -88,12 +100,15 @@ export default function HomeView({
                 : 'col-span-1 translate-x-0 opacity-100'
           }`}
         >
-          <h1 
-            className="text-4xl font-bold mb-4 cursor-pointer hover:text-primary transition-colors duration-300"
-            onClick={() => handleSectionClick('requests')}
-          >
-            Requests
-          </h1>
+          <div className="flex items-center justify-between mb-4">
+            <h1 
+              className="text-4xl font-bold cursor-pointer hover:text-primary transition-colors duration-300"
+              onClick={() => handleSectionClick('requests')}
+            >
+              Requests
+            </h1>
+            {expandedSection === 'requests' && backButtonAndArrow}
+          </div>
           <p className="text-xl text-muted-foreground mb-6">
             Make any requests or something you need help with
           </p>
@@ -119,12 +134,15 @@ export default function HomeView({
                 : 'col-span-1 translate-x-0 opacity-100'
           }`}
         >
-          <h1 
-            className="text-4xl font-bold mb-4 cursor-pointer hover:text-primary transition-colors duration-300"
-            onClick={() => handleSectionClick('services')}
-          >
-            Service Offers
-          </h1>
+          <div className="flex items-center justify-between mb-4">
+            <h1 
+              className="text-4xl font-bold cursor-pointer hover:text-primary transition-colors duration-300"
+              onClick={() => handleSectionClick('services')}
+            >
+              Service Offers
+            </h1>
+            {expandedSection === 'services' && backButtonAndArrow}
+          </div>
           <p className="text-xl text-muted-foreground mb-6">
             Look for volunteers who can provide assistance
           </p>
