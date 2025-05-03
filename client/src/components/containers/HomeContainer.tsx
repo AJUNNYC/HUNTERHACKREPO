@@ -3,7 +3,7 @@ import HomeView from "../views/HomeView";
 //import { useEffect, useRef, useState } from "react";
 import { useEffect, useState } from "react";
 import { Request, Service, MOCK_REQUESTS, MOCK_SERVICES } from "../../types/types";
-
+import NavigationButtons from "../views/NavigationButtons";
 
 export default function HomeContainer() {
 
@@ -17,9 +17,12 @@ export default function HomeContainer() {
   }, []);
 
   return (
-    <HomeView 
-      requests={requests}
-      services={services}
-    />
+    <div>
+      <NavigationButtons />
+      <HomeView 
+        requests={requests}
+        services={services}
+      />
+    </div>
   );
 }

@@ -29,6 +29,31 @@ export type Comment = {
   createdAt: string;
 };
 
+
+export type PostSummary = {
+  id: string;
+  type: 'request' | 'service';
+  title: string;
+  createdAt: string;
+};
+
+export type Availability = {
+  date: string;
+  available: boolean;
+};
+
+export type User = {
+  userId: string;
+  userName: string;
+  name: string;
+  image: string;
+  bio: string;
+  requestsFilled: number;
+  offersPosted: number;
+  recentPosts: PostSummary[];
+  availability: Availability[];
+};
+
 export const MOCK_REQUESTS: Request[] = [
   {
     id: '1',
@@ -174,6 +199,26 @@ export const MOCK_SERVICES: Service[] = [
   },
 ];
 
+
+// Mock user data
+export const MOCK_USER: User = {
+  userId: '1',
+  userName: 'CodeForGood',
+  name: 'John Doe',
+  image: '/placeholder.svg?height=200&width=200',
+  bio: 'Web developer and volunteer enthusiast. I love helping non-profits with their tech needs and participating in community events.',
+  requestsFilled: 12,
+  offersPosted: 8,
+  recentPosts: [
+    { id: '1', type: 'service', title: 'Web Development Help', createdAt: '2023-05-15' },
+  ],
+  availability: [
+    { date: '2023-05-20', available: true },
+    { date: '2023-05-21', available: true },
+    { date: '2023-05-27', available: true },
+    { date: '2023-05-28', available: true },
+  ],
+};
 
 
 

@@ -19,7 +19,7 @@ import ErrorPage from './components/views/error-page.jsx'; // We will need to co
 // Better pages (containers)
 import HomeContainer  from './components/containers/HomeContainer';
 import RequestContainer from './components/containers/RequestContainer';
-
+import ProfileContainer from './components/containers/ProfileContainer';
 // import SettingsContainer from './components/containers/SettingsContainer';
 
 
@@ -38,6 +38,10 @@ const router = createBrowserRouter([
   {
     path: "/requests/:id",
     element: <RequestContainer />, // handles dynamic request page
+  },
+  {
+    path: "/profile/:id",
+    element: <ProfileContainer />,
   },
   // {
   //   path: "/Settings",
