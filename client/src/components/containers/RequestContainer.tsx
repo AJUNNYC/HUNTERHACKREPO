@@ -1,33 +1,45 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';  // Import doc and getDoc
-import { db } from '../../config/firebase'; // Updated import path
+import { doc, getDoc, setDoc, collection } from 'firebase/firestore';
+import { db } from '../../config/firebase';
 import RequestView from '../views/RequestView';
-import { Request } from '../../types/types';
+import { Request, MOCK_REQUESTS } from '../../types/types';
 
 export default function RequestContainer() {
   const { id } = useParams();
   const [request, setRequest] = useState<Request | null>(null);
 
   useEffect(() => {
-    if (!id) return;  // If the ID is missing, don't try to fetch anything
+    if (!id) return;
 
     async function fetchRequest() {
+      if (typeof id !== 'string') return;
 
-      if (typeof id !== 'string') return;  // Make sure 'id' is a string
-
-      const docRef = doc(db, "Requests", id);  // "Requests" is the collection, "id" is the document ID from the URL
-      const docSnap = await getDoc(docRef);   // Fetch the document with that ID
+      const docRef = doc(db, "Requests", id);
+      const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setRequest({ id: docSnap.id, ...docSnap.data() } as Request);  // If the document exists, set the state
+        setRequest({ id: docSnap.id, ...docSnap.data() } as Request);
       } else {
-        setRequest(null);  // If no document is found, set the state to null (request not found)
+        // Check if request exists in mock data
+        const mockRequest = MOCK_REQUESTS.find(req => req.id === id);
+        if (mockRequest) {
+          // Create new document with the mock data
+          const newDocRef = doc(collection(db, "Requests"));
+          const { id: _, ...mockDataWithoutId } = mockRequest;
+          await setDoc(newDocRef, mockDataWithoutId);
+          // Fetch the newly created document
+          const newDocSnap = await getDoc(newDocRef);
+          if (newDocSnap.exists()) {
+            setRequest({ id: newDocSnap.id, ...newDocSnap.data() } as Request);
+          }
+        } else {
+          setRequest(null);
+        }
       }
     }
 
-    fetchRequest();  // Call the async function to fetch the request
-
+    fetchRequest();
   }, [id]);
 
   if (!request) return <div className="p-4">Request not found or loading...</div>;
