@@ -32,8 +32,27 @@ export default function BudgetChart({ monthlyData, expensesBreakdown }: BudgetCh
   const formatCurrency = (value: number) => `$${value.toLocaleString()}`;
 
   const COLORS = [
-    "#22c55e", "#16a34a", "#15803d", "#166534", "#14532d",
-    "#ef4444", "#dc2626", "#b91c1c", "#991b1b", "#7f1d1d",
+  // Greens
+  "#22c55e", // green-500
+  "#16a34a", // green-600
+  "#15803d", // green-700
+  "#166534", // green-800
+  "#14532d", // green-900
+
+  // Blues
+  "#3b82f6", // blue-500
+  "#2563eb", // blue-600
+  "#1d4ed8", // blue-700
+  "#1e40af", // blue-800
+  "#1e3a8a", // blue-900
+
+  // Purples
+  "#a855f7", // purple-500
+  "#9333ea", // purple-600
+  "#7e22ce", // purple-700
+  "#6b21a8", // purple-800
+  "#581c87", // purple-900
+
   ];
 
   return (
