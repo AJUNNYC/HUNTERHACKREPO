@@ -99,7 +99,7 @@ export default function BudgetForm({
         <div className="flex items-center gap-2">
           <Slider
             id="income"
-            min={1000}
+            min={0}
             max={20000}
             step={100}
             value={[monthlyIncome]}
