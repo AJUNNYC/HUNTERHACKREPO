@@ -89,13 +89,25 @@ export default function BudgetOverview({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
             <div>
-              <h4 className="text-2xl font-bold text-red-500">Savings Goal</h4>
+              <h4 className="text-2xl font-bold text-white">Monthly Income</h4>
+              <p className="text-3xl font-bold text-green-500">${monthlyIncome.toLocaleString()}</p>
+              <p className="text-sm text-zinc-400">Total monthly earnings</p>
+            </div>
+            <div>
+              <h4 className="text-2xl font-bold text-white">Savings Rate</h4>
+              <p className="text-3xl font-bold text-green-500">{savingsRate.toFixed(1)}%</p>
+              <p className="text-sm text-zinc-400">Percentage of income saved</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+            <div>
+              <h4 className="text-2xl font-bold text-white">Savings Goal</h4>
               <p className="text-3xl font-bold text-green-500">${savingsGoal.toLocaleString()}</p>
               <div className="mt-2">
                 <Progress
                   value={monthlySavings > 0 ? Math.min(100, (monthlySavings / savingsGoal) * 100) : 0}
-                  className="h-2 bg-zinc-700"
-                  // indicatorClassName="bg-green-500"
+                  className="h-2 bg-zinc-700 [&>div]:bg-green-500"
                 />
                 <p className="text-sm text-zinc-400 mt-1">
                   {monthlySavings <= 0
@@ -105,39 +117,13 @@ export default function BudgetOverview({
               </div>
             </div>
             <div>
-              <h4 className="text-2xl font-bold text-red-500">Annual Savings</h4>
+              <h4 className="text-2xl font-bold text-white">Annual Savings</h4>
               <p className="text-3xl font-bold text-green-500">${annualSavings.toLocaleString()}</p>
-              <p className="text-sm text-zinc-400 mt-1">{savingsRate.toFixed(1)}% of your income is saved</p>
+              <p className="text-sm text-zinc-400 mt-1">Total savings per year</p>
             </div>
           </div>
         </CardContent>
       </Card>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="bg-zinc-800 border-none">
-          <CardContent className="p-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h4 className="text-lg font-medium text-white">Monthly Income</h4>
-                <p className="text-2xl font-bold text-green-500">${monthlyIncome.toLocaleString()}</p>
-              </div>
-              <div className="text-4xl text-green-500">💰</div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-zinc-800 border-none">
-          <CardContent className="p-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h4 className="text-lg font-medium text-white">Savings Rate</h4>
-                <p className="text-2xl font-bold text-green-500">{savingsRate.toFixed(1)}%</p>
-              </div>
-              <div className="text-4xl text-green-500">📈</div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 }

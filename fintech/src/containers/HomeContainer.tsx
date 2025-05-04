@@ -13,6 +13,10 @@ interface UserSettings {
   customRate: number;
   lumpSums: Array<{ amount: number; year: number }>;
   totalGoal: number;
+  // Budget settings
+  monthlyIncome: number;
+  expenses: Array<{ category: string; amount: number }>;
+  savingsGoal: number;
 }
 
 export default function HomeContainer() {
@@ -24,22 +28,19 @@ export default function HomeContainer() {
   const [lumpSums, setLumpSums] = useState<Array<{ amount: number; year: number }>>([]);
   const [totalGoal, setTotalGoal] = useState(2000000);
 
+  // Budget state
+  const [monthlyIncome, setMonthlyIncome] = useState<number>(5000);
+  const [expenses, setExpenses] = useState<Array<{ category: string; amount: number }>>([
+    { category: "Housing", amount: 1500 },
+    { category: "Food", amount: 600 },
+    { category: "Transportation", amount: 400 },
+    { category: "Utilities", amount: 300 },
+    { category: "Entertainment", amount: 200 },
+  ]);
+  const [savingsGoal, setSavingsGoal] = useState<number>(1000);
 
   const [viewType, setViewType] = useState<'home' | 'budget' >('budget');
 
-
-    // Budget state
-    const [monthlyIncome, setMonthlyIncome] = useState<number>(5000)
-    const [expenses, setExpenses] = useState<Array<{ category: string; amount: number }>>([
-      { category: "Housing", amount: 1500 },
-      { category: "Food", amount: 600 },
-      { category: "Transportation", amount: 400 },
-      { category: "Utilities", amount: 300 },
-      { category: "Entertainment", amount: 200 },
-    ])
-    const [savingsGoal, setSavingsGoal] = useState<number>(1000)
-
-    
   // Load settings when user logs in
   useEffect(() => {
     const loadSettings = async () => {
@@ -51,12 +52,52 @@ export default function HomeContainer() {
         
         if (docSnap.exists() && docSnap.data().settings) {
           const settings = docSnap.data().settings as UserSettings;
-          setMonthlyInvestment(settings.monthlyInvestment);
-          setYears(settings.years);
-          setSelectedRate(settings.selectedRate);
-          setCustomRate(settings.customRate);
-          setLumpSums(settings.lumpSums);
-          setTotalGoal(settings.totalGoal);
+          setMonthlyInvestment(settings.monthlyInvestment || 500);
+          setYears(settings.years || 30);
+          setSelectedRate(settings.selectedRate || "spy");
+          setCustomRate(settings.customRate || 0.05);
+          setLumpSums(settings.lumpSums || []);
+          setTotalGoal(settings.totalGoal || 2000000);
+          // Load budget settings with defaults
+          setMonthlyIncome(settings.monthlyIncome || 5000);
+          setExpenses(settings.expenses || [
+            { category: "Housing", amount: 1500 },
+            { category: "Food", amount: 600 },
+            { category: "Transportation", amount: 400 },
+            { category: "Utilities", amount: 300 },
+            { category: "Entertainment", amount: 200 },
+          ]);
+          setSavingsGoal(settings.savingsGoal || 1000);
+        } else {
+          // If no settings exist, set default values
+          const defaultSettings: UserSettings = {
+            monthlyInvestment: 500,
+            years: 30,
+            selectedRate: "spy",
+            customRate: 0.05,
+            lumpSums: [],
+            totalGoal: 2000000,
+            monthlyIncome: 5000,
+            expenses: [
+              { category: "Housing", amount: 1500 },
+              { category: "Food", amount: 600 },
+              { category: "Transportation", amount: 400 },
+              { category: "Utilities", amount: 300 },
+              { category: "Entertainment", amount: 200 },
+            ],
+            savingsGoal: 1000
+          };
+          await setDoc(userRef, { settings: defaultSettings });
+          // Set the state with default values
+          setMonthlyInvestment(defaultSettings.monthlyInvestment);
+          setYears(defaultSettings.years);
+          setSelectedRate(defaultSettings.selectedRate);
+          setCustomRate(defaultSettings.customRate);
+          setLumpSums(defaultSettings.lumpSums);
+          setTotalGoal(defaultSettings.totalGoal);
+          setMonthlyIncome(defaultSettings.monthlyIncome);
+          setExpenses(defaultSettings.expenses);
+          setSavingsGoal(defaultSettings.savingsGoal);
         }
       } catch (error) {
         console.error("Error loading settings:", error);
@@ -79,6 +120,10 @@ export default function HomeContainer() {
         customRate,
         lumpSums,
         totalGoal,
+        // Save budget settings
+        monthlyIncome,
+        expenses,
+        savingsGoal,
       };
       
       await setDoc(userRef, { settings }, { merge: true });
@@ -129,7 +174,7 @@ export default function HomeContainer() {
     ? years
     : Math.ceil(Math.log(totalGoal / results.finalValue) / Math.log(1 + rates[selectedRate as keyof typeof rates]) + years);
 
-      // Calculate budget results
+  // Calculate budget results
   const calculateBudget = () => {
     const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0)
     const monthlySavings = monthlyIncome - totalExpenses
@@ -157,19 +202,26 @@ export default function HomeContainer() {
       monthlySavings,
       annualSavings,
       savingsRate,
+      savingsGoal,
       monthsToGoal,
       monthlyData,
       expensesBreakdown: expenses,
     }
   }
 
-
   if (viewType == 'budget'){
+    const budgetResults = calculateBudget();
     return (
       <BudgetView
         onSaveSettings={saveSettings}
         setViewType={setViewType}
-      
+        monthlyIncome={monthlyIncome}
+        setMonthlyIncome={setMonthlyIncome}
+        expenses={expenses}
+        setExpenses={setExpenses}
+        savingsGoal={savingsGoal}
+        setSavingsGoal={setSavingsGoal}
+        budgetResults={budgetResults}
       />
     )
   } else{
@@ -195,5 +247,4 @@ export default function HomeContainer() {
       />
     );
   }
-
 }

@@ -63,7 +63,7 @@ export default function BudgetChart({ monthlyData, expensesBreakdown }: BudgetCh
                 <Legend />
                 <Line type="monotone" dataKey="income" name="Cumulative Income" stroke="#4ade80" strokeWidth={2} dot={false} activeDot={{ r: 6, fill: "#4ade80" }} />
                 <Line type="monotone" dataKey="expenses" name="Cumulative Expenses" stroke="#ef4444" strokeWidth={2} dot={false} activeDot={{ r: 6, fill: "#ef4444" }} />
-                <Line type="monotone" dataKey="savings" name="Cumulative Savings" stroke="#22c55e" strokeWidth={2} dot={false} activeDot={{ r: 6, fill: "#22c55e" }} />
+                <Line type="monotone" dataKey="savings" name="Cumulative Savings" stroke="#0d9488" strokeWidth={2} dot={false} activeDot={{ r: 6, fill: "#22c55e" }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
