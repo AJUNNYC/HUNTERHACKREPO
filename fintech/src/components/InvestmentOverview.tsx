@@ -95,7 +95,7 @@ export default function InvestmentOverview({
               <h4 className="text-2xl font-bold text-red-500">Total Goal</h4>
               <p className="text-3xl font-bold text-green-500">${totalGoal.toLocaleString()}</p>
               <div className="mt-2">
-                <Progress value={percentageOfGoal} className="h-2 bg-zinc-700" indicatorClassName="bg-green-500" />
+                <Progress value={percentageOfGoal} className="h-2 bg-zinc-700 [&>div]:bg-green-500" />
                 <p className="text-sm text-zinc-400 mt-1">{Math.round(percentageOfGoal)}% of goal achieved</p>
               </div>
             </div>
