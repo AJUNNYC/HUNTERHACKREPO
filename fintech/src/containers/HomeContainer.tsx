@@ -1,14 +1,74 @@
 // src/containers/HomeContainer.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import HomeView from '../views/HomeView';
+import { useAuth } from '../config/AuthUser';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { db } from '../config/firebase';
+
+interface UserSettings {
+  monthlyInvestment: number;
+  years: number;
+  selectedRate: string;
+  customRate: number;
+  lumpSums: Array<{ amount: number; year: number }>;
+  totalGoal: number;
+}
 
 export default function HomeContainer() {
+  const { userData } = useAuth();
   const [monthlyInvestment, setMonthlyInvestment] = useState(500);
   const [years, setYears] = useState(30);
   const [selectedRate, setSelectedRate] = useState("spy");
   const [customRate, setCustomRate] = useState(0.05);
   const [lumpSums, setLumpSums] = useState<Array<{ amount: number; year: number }>>([]);
   const [totalGoal, setTotalGoal] = useState(2000000);
+
+  // Load settings when user logs in
+  useEffect(() => {
+    const loadSettings = async () => {
+      if (!userData) return;
+      
+      try {
+        const userRef = doc(db, "users", userData.userId);
+        const docSnap = await getDoc(userRef);
+        
+        if (docSnap.exists() && docSnap.data().settings) {
+          const settings = docSnap.data().settings as UserSettings;
+          setMonthlyInvestment(settings.monthlyInvestment);
+          setYears(settings.years);
+          setSelectedRate(settings.selectedRate);
+          setCustomRate(settings.customRate);
+          setLumpSums(settings.lumpSums);
+          setTotalGoal(settings.totalGoal);
+        }
+      } catch (error) {
+        console.error("Error loading settings:", error);
+      }
+    };
+
+    loadSettings();
+  }, [userData]);
+
+  // Save settings to Firestore
+  const saveSettings = async () => {
+    if (!userData) return;
+    
+    try {
+      const userRef = doc(db, "users", userData.userId);
+      const settings: UserSettings = {
+        monthlyInvestment,
+        years,
+        selectedRate,
+        customRate,
+        lumpSums,
+        totalGoal,
+      };
+      
+      await setDoc(userRef, { settings }, { merge: true });
+    } catch (error) {
+      console.error("Error saving settings:", error);
+    }
+  };
 
   const rates = {
     low: 0.04,
@@ -70,6 +130,7 @@ export default function HomeContainer() {
       results={results}
       percentageOfGoal={percentageOfGoal}
       estimatedYearsToGoal={estimatedYearsToGoal}
+      onSaveSettings={saveSettings}
     />
   );
 }

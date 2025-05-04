@@ -3,6 +3,7 @@ import InvestmentOverview from "@/components/InvestmentOverview";
 import InvestmentChart from "@/components/InvestmentChart";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { AuthView } from "@/config/auth";
 
 interface HomeViewProps {
   monthlyInvestment: number;
@@ -25,6 +26,7 @@ interface HomeViewProps {
   };
   percentageOfGoal: number;
   estimatedYearsToGoal: number;
+  onSaveSettings: () => void;
 }
 
 export default function HomeView({
@@ -43,11 +45,15 @@ export default function HomeView({
   results,
   percentageOfGoal,
   estimatedYearsToGoal,
+  onSaveSettings,
 }: HomeViewProps) {
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="container mx-auto py-8 px-4">
-        <h1 className="text-3xl font-bold mb-8 text-green-500">Investment Calculator</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-green-500">Investment Calculator</h1>
+          <AuthView onSaveSettings={onSaveSettings} />
+        </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <Card className="lg:col-span-1 bg-zinc-900 border-green-500/20">
