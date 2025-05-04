@@ -28,10 +28,10 @@ export default function InvestmentOverview({
   return (
     <div className="space-y-6">
       <Card className="bg-zinc-800 border-none">
-        <CardContent className="p-6">
-          <h3 className="text-xl font-semibold mb-4 text-white">Overall</h3>
+        <CardContent className="p-4">
+          <h3 className="text-xl font-semibold mb-2 text-white">Overall</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
             <div className="flex flex-col items-center">
               <div className="relative w-48 h-48">
                 <svg className="w-full h-full" viewBox="0 0 100 100">
@@ -75,7 +75,7 @@ export default function InvestmentOverview({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6">
+            <div className="grid grid-cols-1 gap-4">
               <div>
                 <h4 className="text-2xl font-bold text-teal-500">Invested Amount</h4>
                 <p className="text-3xl font-bold text-teal-500">${Math.round(totalInvested).toLocaleString()}</p>
@@ -90,7 +90,7 @@ export default function InvestmentOverview({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
             <div>
               <h4 className="text-2xl font-bold text-white">Total Goal</h4>
               <p className="text-3xl font-bold text-green-500">${totalGoal.toLocaleString()}</p>
@@ -110,34 +110,22 @@ export default function InvestmentOverview({
               </p>
             </div>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div>
+              <h4 className="text-2xl font-bold text-white">Final Value</h4>
+              <p className="text-3xl font-bold text-green-500">${Math.round(finalValue).toLocaleString()}</p>
+              <p className="text-sm text-zinc-400">{finalValue >= totalGoal ? "✓ Goal Achieved" : ""}</p>
+            </div>
+
+            <div>
+              <h4 className="text-2xl font-bold text-white">Return Multiplier</h4>
+              <p className="text-3xl font-bold text-green-500">{(finalValue / totalInvested).toFixed(2)}x</p>
+              <p className="text-sm text-zinc-400">Total Return</p>
+            </div>
+          </div>
         </CardContent>
       </Card>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="bg-zinc-800 border-none">
-          <CardContent className="p-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h4 className="text-lg font-medium text-white">Final Value</h4>
-                <p className="text-2xl font-bold text-green-500">${Math.round(finalValue).toLocaleString()}</p>
-              </div>
-              <div className="text-4xl text-green-500">{finalValue >= totalGoal ? "✓" : ""}</div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-zinc-800 border-none">
-          <CardContent className="p-4">
-            <div className="flex justify-between items-center">
-              <div>
-                <h4 className="text-lg font-medium text-white">Return Multiplier</h4>
-                <p className="text-2xl font-bold text-green-500">{(finalValue / totalInvested).toFixed(2)}x</p>
-              </div>
-              <div className="text-4xl text-green-500">💰</div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   );
 }

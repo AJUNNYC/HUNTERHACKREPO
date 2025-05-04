@@ -19,7 +19,17 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
         <LineChart data={data} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#333" />
           <XAxis dataKey="year" stroke="#888" label={{ value: "Years", position: "insideBottomRight", offset: -10, fill: "#888" }} />
-          <YAxis stroke="#888" tickFormatter={formatCurrency} label={{ value: "Value ($)", angle: -90, position: "insideLeft", fill: "#888" }} />
+          <YAxis 
+            stroke="#888" 
+            tickFormatter={formatCurrency} 
+            label={{ 
+              value: "Value ($)", 
+              position: "insideBottomLeft", 
+              offset: -5, 
+              fill: "#888",
+              angle: -90,
+            }} 
+          />
           <Tooltip formatter={(value: number) => [`$${value.toLocaleString()}`, undefined]} contentStyle={{ backgroundColor: "#222", border: "1px solid #333", color: "#fff" }} />
           <Legend />
           <Line type="monotone" dataKey="invested" name="Total Invested" stroke="#0d9488" strokeWidth={2} dot={false} activeDot={{ r: 6, fill: "#0d9488" }} />
