@@ -176,7 +176,7 @@ export default function InvestmentForm({
               <Button
                 variant="outline"
                 size="sm"
-                className="border-green-500 text-green-500 hover:bg-green-500 hover:text-black"
+                className="border-green-500 text-green-500 hover:bg-green-500 hover:text-black bg-zinc-800"
               >
                 <Plus className="h-4 w-4 mr-1" /> Add
               </Button>

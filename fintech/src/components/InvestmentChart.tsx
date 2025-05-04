@@ -22,7 +22,7 @@ export default function InvestmentChart({ data }: InvestmentChartProps) {
           <YAxis stroke="#888" tickFormatter={formatCurrency} label={{ value: "Value ($)", angle: -90, position: "insideLeft", fill: "#888" }} />
           <Tooltip formatter={(value: number) => [`$${value.toLocaleString()}`, undefined]} contentStyle={{ backgroundColor: "#222", border: "1px solid #333", color: "#fff" }} />
           <Legend />
-          <Line type="monotone" dataKey="invested" name="Total Invested" stroke="#4ade80" strokeWidth={2} dot={false} activeDot={{ r: 6, fill: "#4ade80" }} />
+          <Line type="monotone" dataKey="invested" name="Total Invested" stroke="#0d9488" strokeWidth={2} dot={false} activeDot={{ r: 6, fill: "#0d9488" }} />
           <Line type="monotone" dataKey="value" name="Portfolio Value" stroke="#22c55e" strokeWidth={2} dot={false} activeDot={{ r: 6, fill: "#22c55e" }} />
         </LineChart>
       </ResponsiveContainer>

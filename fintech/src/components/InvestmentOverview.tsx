@@ -42,7 +42,7 @@ export default function InvestmentOverview({
                     cy="50"
                     r="40"
                     fill="none"
-                    stroke="#4ade80"
+                    stroke="#0d9488"
                     strokeWidth="10"
                     strokeDasharray={`${investedPercentage * 2.51} ${(100 - investedPercentage) * 2.51}`}
                     strokeDashoffset="0"
@@ -65,7 +65,7 @@ export default function InvestmentOverview({
 
               <div className="flex justify-center gap-8 mt-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-400 rounded-full"></div>
+                  <div className="w-3 h-3 bg-teal-500 rounded-full"></div>
                   <span className="text-sm text-zinc-400">Invested</span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -77,8 +77,8 @@ export default function InvestmentOverview({
 
             <div className="grid grid-cols-1 gap-6">
               <div>
-                <h4 className="text-2xl font-bold text-green-400">Invested Amount</h4>
-                <p className="text-3xl font-bold text-green-400">${Math.round(totalInvested).toLocaleString()}</p>
+                <h4 className="text-2xl font-bold text-teal-500">Invested Amount</h4>
+                <p className="text-3xl font-bold text-teal-500">${Math.round(totalInvested).toLocaleString()}</p>
                 <p className="text-sm text-zinc-400">Net Worth ({Math.round(investedPercentage)}%)</p>
               </div>
 
@@ -92,7 +92,7 @@ export default function InvestmentOverview({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
             <div>
-              <h4 className="text-2xl font-bold text-red-500">Total Goal</h4>
+              <h4 className="text-2xl font-bold text-white">Total Goal</h4>
               <p className="text-3xl font-bold text-green-500">${totalGoal.toLocaleString()}</p>
               <div className="mt-2">
                 <Progress value={percentageOfGoal} className="h-2 bg-zinc-700 [&>div]:bg-green-500" />
@@ -101,7 +101,7 @@ export default function InvestmentOverview({
             </div>
 
             <div>
-              <h4 className="text-2xl font-bold text-red-500">Estimated Time</h4>
+              <h4 className="text-2xl font-bold text-white">Estimated Time</h4>
               <p className="text-3xl font-bold text-green-500">{estimatedYearsToGoal} years</p>
               <p className="text-sm text-zinc-400 mt-1">
                 {finalValue >= totalGoal
