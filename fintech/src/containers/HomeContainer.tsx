@@ -1,6 +1,7 @@
 // src/containers/HomeContainer.tsx
 import { useState, useEffect } from 'react';
 import HomeView from '../views/HomeView';
+import BudgetView from '../views/BudgetView';
 import { useAuth } from '../config/AuthUser';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
@@ -22,6 +23,7 @@ export default function HomeContainer() {
   const [customRate, setCustomRate] = useState(0.05);
   const [lumpSums, setLumpSums] = useState<Array<{ amount: number; year: number }>>([]);
   const [totalGoal, setTotalGoal] = useState(2000000);
+  const [viewType, setViewType] = useState<'home' | 'budget' >('budget');
 
   // Load settings when user logs in
   useEffect(() => {
@@ -112,24 +114,34 @@ export default function HomeContainer() {
     ? years
     : Math.ceil(Math.log(totalGoal / results.finalValue) / Math.log(1 + rates[selectedRate as keyof typeof rates]) + years);
 
-  return (
-    <HomeView
-      monthlyInvestment={monthlyInvestment}
-      setMonthlyInvestment={setMonthlyInvestment}
-      years={years}
-      setYears={setYears}
-      selectedRate={selectedRate}
-      setSelectedRate={setSelectedRate}
-      customRate={customRate}
-      setCustomRate={setCustomRate}
-      lumpSums={lumpSums}
-      setLumpSums={setLumpSums}
-      totalGoal={totalGoal}
-      setTotalGoal={setTotalGoal}
-      results={results}
-      percentageOfGoal={percentageOfGoal}
-      estimatedYearsToGoal={estimatedYearsToGoal}
-      onSaveSettings={saveSettings}
-    />
-  );
+  if (viewType == 'budget'){
+    return (
+      <BudgetView
+        onSaveSettings={saveSettings}
+      
+      />
+    )
+  } else{
+    return (
+      <HomeView
+        monthlyInvestment={monthlyInvestment}
+        setMonthlyInvestment={setMonthlyInvestment}
+        years={years}
+        setYears={setYears}
+        selectedRate={selectedRate}
+        setSelectedRate={setSelectedRate}
+        customRate={customRate}
+        setCustomRate={setCustomRate}
+        lumpSums={lumpSums}
+        setLumpSums={setLumpSums}
+        totalGoal={totalGoal}
+        setTotalGoal={setTotalGoal}
+        results={results}
+        percentageOfGoal={percentageOfGoal}
+        estimatedYearsToGoal={estimatedYearsToGoal}
+        onSaveSettings={saveSettings}
+      />
+    );
+  }
+
 }

@@ -3,9 +3,9 @@ import { auth, db } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 //import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { User } from "../types/types";
+//import { User } from "../types/types";
 
-// Honestly I had chat gpd split this up from auth.tsx
+// JUST MAKE THE USER TYPE HERE
 
 
 // Data that has the actual user auth
@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setUserData(docSnap.data() as User);
         } else {
           console.log("User does not exist, creating user");
+          // PLEASE CHANGE BELOW
           const newUser: User = {
             userId: currentUser.uid,
             userName: currentUser.email || "",

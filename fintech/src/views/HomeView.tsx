@@ -52,7 +52,17 @@ export default function HomeView({
       <div className="container mx-auto py-8 px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-green-500">Investment Calculator</h1>
-          <AuthView onSaveSettings={onSaveSettings} />
+          <div className="flex items-center gap-4">
+            <div> 
+              {/* // Can we highlight this in a green box with curved edges? */}
+              Future Value:
+            </div>
+            <div> 
+              {/* // On click switch to budget view */}
+              Budget:
+            </div>
+            <AuthView onSaveSettings={onSaveSettings} />
+          </div>
         </div>
         
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
