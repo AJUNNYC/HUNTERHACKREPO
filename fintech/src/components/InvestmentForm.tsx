@@ -25,6 +25,8 @@ interface InvestmentFormProps {
   setYears: (value: number) => void;
   selectedRate: string;
   setSelectedRate: (value: string) => void;
+  customRate: number;
+  setCustomRate: (value: number) => void;
   lumpSums: Array<{ amount: number; year: number }>;
   setLumpSums: (value: Array<{ amount: number; year: number }>) => void;
   totalGoal: number;
@@ -38,6 +40,8 @@ export default function InvestmentForm({
   setYears,
   selectedRate,
   setSelectedRate,
+  customRate,
+  setCustomRate,
   lumpSums,
   setLumpSums,
   totalGoal,
@@ -129,9 +133,9 @@ export default function InvestmentForm({
             </Label>
           </div>
           <div className="flex items-center space-x-2">
-            <RadioGroupItem value="high" id="high" className="border-green-500 text-green-500" />
-            <Label htmlFor="high" className="text-white">
-              10% APR (Aggressive)
+            <RadioGroupItem value="real" id="real" className="border-green-500 text-green-500" />
+            <Label htmlFor="real" className="text-white">
+              Avg Inflation Adjusted Real Return (6.37%)
             </Label>
           </div>
           <div className="flex items-center space-x-2">
@@ -140,6 +144,26 @@ export default function InvestmentForm({
               SPY Average (10.11%)
             </Label>
           </div>
+          <div className="flex items-center space-x-2">
+            <RadioGroupItem value="custom" id="custom" className="border-green-500 text-green-500" />
+            <Label htmlFor="custom" className="text-white">
+              Custom Rate
+            </Label>
+          </div>
+          {selectedRate === "custom" && (
+            <div className="ml-6 flex items-center gap-2">
+              <Input
+                type="number"
+                min="0"
+                max="100"
+                step="0.01"
+                value={customRate * 100}
+                onChange={(e) => setCustomRate(parseFloat(e.target.value) / 100)}
+                className="w-24 bg-zinc-800 border-zinc-700 text-white"
+              />
+              <span className="text-white">%</span>
+            </div>
+          )}
         </RadioGroup>
       </div>
 

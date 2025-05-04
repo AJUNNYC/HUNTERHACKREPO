@@ -6,13 +6,15 @@ export default function HomeContainer() {
   const [monthlyInvestment, setMonthlyInvestment] = useState(500);
   const [years, setYears] = useState(30);
   const [selectedRate, setSelectedRate] = useState("spy");
+  const [customRate, setCustomRate] = useState(0.05);
   const [lumpSums, setLumpSums] = useState<Array<{ amount: number; year: number }>>([]);
   const [totalGoal, setTotalGoal] = useState(2000000);
 
   const rates = {
     low: 0.04,
-    high: 0.1,
+    real: 0.0637,
     spy: 0.1011,
+    custom: customRate,
   };
 
   const calculateInvestment = () => {
@@ -52,7 +54,6 @@ export default function HomeContainer() {
     : Math.ceil(Math.log(totalGoal / results.finalValue) / Math.log(1 + rates[selectedRate as keyof typeof rates]) + years);
 
   return (
-
     <HomeView
       monthlyInvestment={monthlyInvestment}
       setMonthlyInvestment={setMonthlyInvestment}
@@ -60,6 +61,8 @@ export default function HomeContainer() {
       setYears={setYears}
       selectedRate={selectedRate}
       setSelectedRate={setSelectedRate}
+      customRate={customRate}
+      setCustomRate={setCustomRate}
       lumpSums={lumpSums}
       setLumpSums={setLumpSums}
       totalGoal={totalGoal}

@@ -1,6 +1,6 @@
-import InvestmentForm from '../components/InvestmentForm';
-import InvestmentOverview from '../components/InvestmentOverview';
-import InvestmentChart from '../components/InvestmentChart';
+import InvestmentForm from "@/components/InvestmentForm";
+import InvestmentOverview from "@/components/InvestmentOverview";
+import InvestmentChart from "@/components/InvestmentChart";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -11,6 +11,8 @@ interface HomeViewProps {
   setYears: (value: number) => void;
   selectedRate: string;
   setSelectedRate: (value: string) => void;
+  customRate: number;
+  setCustomRate: (value: number) => void;
   lumpSums: Array<{ amount: number; year: number }>;
   setLumpSums: (value: Array<{ amount: number; year: number }>) => void;
   totalGoal: number;
@@ -32,6 +34,8 @@ export default function HomeView({
   setYears,
   selectedRate,
   setSelectedRate,
+  customRate,
+  setCustomRate,
   lumpSums,
   setLumpSums,
   totalGoal,
@@ -41,8 +45,6 @@ export default function HomeView({
   estimatedYearsToGoal,
 }: HomeViewProps) {
   return (
-    
-
     <div className="min-h-screen bg-black text-white">
       <div className="container mx-auto py-8 px-4">
         <h1 className="text-3xl font-bold mb-8 text-green-500">Investment Calculator</h1>
@@ -61,6 +63,8 @@ export default function HomeView({
                 setYears={setYears}
                 selectedRate={selectedRate}
                 setSelectedRate={setSelectedRate}
+                customRate={customRate}
+                setCustomRate={setCustomRate}
                 lumpSums={lumpSums}
                 setLumpSums={setLumpSums}
                 totalGoal={totalGoal}
@@ -75,9 +79,11 @@ export default function HomeView({
               <CardDescription className="text-zinc-400">
                 {selectedRate === "low"
                   ? "4% APR"
-                  : selectedRate === "high"
-                  ? "10% APR"
-                  : "SPY Average (10.11% APR)"}
+                  : selectedRate === "real"
+                  ? "6.37% APR"
+                  : selectedRate === "spy"
+                  ? "SPY Average (10.11% APR)"
+                  : `Custom Rate (${(customRate * 100).toFixed(2)}% APR)`}
               </CardDescription>
             </CardHeader>
             <CardContent>
