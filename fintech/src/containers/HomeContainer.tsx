@@ -79,7 +79,6 @@ export default function HomeContainer() {
 
   const calculateInvestment = () => {
     const rate = rates[selectedRate as keyof typeof rates];
-    const months = years * 12;
     let totalInvested = 0;
     let finalValue = 0;
     const yearlyData = [];

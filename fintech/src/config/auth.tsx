@@ -1,8 +1,6 @@
 import { auth, googleProvider } from "./firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { useAuth } from "../config/AuthUser";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "./firebase";
 
 interface AuthViewProps {
   onSaveSettings: () => void;
@@ -32,7 +30,6 @@ export const AuthView = ({ onSaveSettings }: AuthViewProps) => {
   const saveSettings = async () => {
     if (!userData) return;
     try {
-      const userRef = doc(db, "users", userData.userId);
       await onSaveSettings();
       console.log("Settings saved successfully");
     } catch (error) {
@@ -51,7 +48,7 @@ export const AuthView = ({ onSaveSettings }: AuthViewProps) => {
         </button>
         <button 
           onClick={signOut_}
-          className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+          className="px-4 py-2 text-base font-medium text-white hover:text-gray-200"
         >
           Logout
         </button>
@@ -59,7 +56,7 @@ export const AuthView = ({ onSaveSettings }: AuthViewProps) => {
     ) : (
       <button 
         onClick={signInWithGoogle}
-        className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900"
+        className="px-4 py-2 text-base font-medium text-white hover:text-gray-200"
       >
         Sign in with Google
       </button>
