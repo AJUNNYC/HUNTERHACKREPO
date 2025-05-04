@@ -39,7 +39,7 @@ export default function HomeContainer() {
   ]);
   const [savingsGoal, setSavingsGoal] = useState<number>(1000);
 
-  const [viewType, setViewType] = useState<'home' | 'budget' >('budget');
+  const [viewType, setViewType] = useState<'home' | 'budget' >('home');
 
   // Load settings when user logs in
   useEffect(() => {
