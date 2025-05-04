@@ -23,8 +23,23 @@ export default function HomeContainer() {
   const [customRate, setCustomRate] = useState(0.05);
   const [lumpSums, setLumpSums] = useState<Array<{ amount: number; year: number }>>([]);
   const [totalGoal, setTotalGoal] = useState(2000000);
+
+
   const [viewType, setViewType] = useState<'home' | 'budget' >('budget');
 
+
+    // Budget state
+    const [monthlyIncome, setMonthlyIncome] = useState<number>(5000)
+    const [expenses, setExpenses] = useState<Array<{ category: string; amount: number }>>([
+      { category: "Housing", amount: 1500 },
+      { category: "Food", amount: 600 },
+      { category: "Transportation", amount: 400 },
+      { category: "Utilities", amount: 300 },
+      { category: "Entertainment", amount: 200 },
+    ])
+    const [savingsGoal, setSavingsGoal] = useState<number>(1000)
+
+    
   // Load settings when user logs in
   useEffect(() => {
     const loadSettings = async () => {
@@ -114,10 +129,46 @@ export default function HomeContainer() {
     ? years
     : Math.ceil(Math.log(totalGoal / results.finalValue) / Math.log(1 + rates[selectedRate as keyof typeof rates]) + years);
 
+      // Calculate budget results
+  const calculateBudget = () => {
+    const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0)
+    const monthlySavings = monthlyIncome - totalExpenses
+    const annualSavings = monthlySavings * 12
+    const savingsRate = (monthlySavings / monthlyIncome) * 100
+    const monthsToGoal = savingsGoal > 0 ? Math.ceil(savingsGoal / monthlySavings) : 0
+
+    // Create monthly projection for the next 12 months
+    const monthlyData = []
+    let cumulativeSavings = 0
+
+    for (let month = 1; month <= 12; month++) {
+      cumulativeSavings += monthlySavings
+      monthlyData.push({
+        month,
+        savings: cumulativeSavings,
+        income: monthlyIncome * month,
+        expenses: totalExpenses * month,
+      })
+    }
+
+    return {
+      monthlyIncome,
+      totalExpenses,
+      monthlySavings,
+      annualSavings,
+      savingsRate,
+      monthsToGoal,
+      monthlyData,
+      expensesBreakdown: expenses,
+    }
+  }
+
+
   if (viewType == 'budget'){
     return (
       <BudgetView
         onSaveSettings={saveSettings}
+        setViewType={setViewType}
       
       />
     )
@@ -140,6 +191,7 @@ export default function HomeContainer() {
         percentageOfGoal={percentageOfGoal}
         estimatedYearsToGoal={estimatedYearsToGoal}
         onSaveSettings={saveSettings}
+        setViewType={setViewType}
       />
     );
   }

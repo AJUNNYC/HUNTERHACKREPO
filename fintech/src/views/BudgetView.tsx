@@ -1,29 +1,34 @@
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AuthView } from "@/config/auth";
 
 interface BudgetViewProps {
   onSaveSettings: () => void;
+  setViewType: (view: 'home' | 'budget') => void;
 }
 
 export default function BudgetView({
   onSaveSettings,
+  setViewType,
 }: BudgetViewProps) {
+
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="container mx-auto py-8 px-4">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-green-500">Investment Calculator</h1>
           <div className="flex items-center gap-4">
-            <div> 
-              {/* // Can we highlight this in a green box with curved edges? */}
-              Future Value:
-            </div>
-            <div> 
-              {/* // On click switch to budget view */}
-              Budget:
-            </div>
+            <button 
+              onClick={() => setViewType('home')}
+              className="px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 transition-colors"
+            >
+              Future Value
+            </button>
+            <button 
+              onClick={() => setViewType('budget')}
+              className="px-4 py-2 rounded-lg bg-green-500 text-black font-medium"
+            >
+              Budget
+            </button>
             <AuthView onSaveSettings={onSaveSettings} />
           </div>
         </div>

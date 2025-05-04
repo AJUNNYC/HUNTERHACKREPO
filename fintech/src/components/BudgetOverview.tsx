@@ -95,7 +95,7 @@ export default function BudgetOverview({
                 <Progress
                   value={monthlySavings > 0 ? Math.min(100, (monthlySavings / savingsGoal) * 100) : 0}
                   className="h-2 bg-zinc-700"
-                  indicatorClassName="bg-green-500"
+                  // indicatorClassName="bg-green-500"
                 />
                 <p className="text-sm text-zinc-400 mt-1">
                   {monthlySavings <= 0

@@ -27,6 +27,7 @@ interface HomeViewProps {
   percentageOfGoal: number;
   estimatedYearsToGoal: number;
   onSaveSettings: () => void;
+  setViewType: (view: 'home' | 'budget') => void;
 }
 
 export default function HomeView({
@@ -46,6 +47,7 @@ export default function HomeView({
   percentageOfGoal,
   estimatedYearsToGoal,
   onSaveSettings,
+  setViewType,
 }: HomeViewProps) {
   return (
     <div className="min-h-screen bg-black text-white">
@@ -53,14 +55,18 @@ export default function HomeView({
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-green-500">Investment Calculator</h1>
           <div className="flex items-center gap-4">
-            <div> 
-              {/* // Can we highlight this in a green box with curved edges? */}
-              Future Value:
-            </div>
-            <div> 
-              {/* // On click switch to budget view */}
-              Budget:
-            </div>
+            <button 
+              onClick={() => setViewType('home')}
+              className="px-4 py-2 rounded-lg bg-green-500 text-black font-medium"
+            >
+              Future Value
+            </button>
+            <button 
+              onClick={() => setViewType('budget')}
+              className="px-4 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 transition-colors"
+            >
+              Budget
+            </button>
             <AuthView onSaveSettings={onSaveSettings} />
           </div>
         </div>
