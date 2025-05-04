@@ -47,6 +47,7 @@ export const AuthView = () => {
         src={userData.image} 
         alt="User profile" 
         className="h-10 w-10 rounded-full object-cover"
+        referrerPolicy="no-referrer"
       />
     ) : null;
   };

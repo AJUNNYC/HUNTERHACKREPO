@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import {AuthView} from "../../config/auth";
 // import "../styles/temp.css"
 // import PropTypes from "prop-types"; // Import PropTypes
 // import {AuthView} from "../../config/auth";
@@ -12,12 +13,9 @@ export default function NavigationButtons() {
               {SingleButton('Home')}
             </div>
     
-            {/* Right: Settings + AuthView Placeholder */}
+            {/* Right: Settings + AuthView */}
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-gray-500">AuthView PLACEHOLDER</span>
-                <div className="w-8 h-8 rounded-full bg-gray-300" />
-              </div>
+              <AuthView />
               {SingleButton('Settings')}
             </div>
           </div>

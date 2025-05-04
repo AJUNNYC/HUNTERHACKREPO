@@ -33,8 +33,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           const newUser: User = {
             userId: currentUser.uid,
             userName: currentUser.email || "",
-            name: "",
-            image: "",
+            name: currentUser.displayName || "",
+            image: currentUser.photoURL || "",
             bio: "",
             requestsFilled: 0,
             offersPosted: 0,

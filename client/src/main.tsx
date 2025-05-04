@@ -2,7 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 // import App from './App.jsx' // We don't need this file
-//import { AuthProvider } from "./config/AuthUser"
+import { AuthProvider } from "./config/AuthUser"
 
 import {
   createBrowserRouter,
@@ -62,9 +62,9 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    {/* <AuthProvider> */}
+    <AuthProvider>
       <RouterProvider router={router} />
-    {/* </AuthProvider> */}
+    </AuthProvider>
   </StrictMode>
 );
 
